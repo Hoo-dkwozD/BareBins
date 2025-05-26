@@ -11,4 +11,5 @@ to be used for carrying out developed exploits in.
 """
 
 # Local application/library imports
-from .BinShell.BinShell import BinShell
+from .BinShell import BinShellManager
+from .BinShell import BinShellAbsClass

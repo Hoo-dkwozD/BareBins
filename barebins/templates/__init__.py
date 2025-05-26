@@ -24,3 +24,19 @@ def start_template() -> str:
         START = f.read()
 
     return START
+
+# Template for the exploit modules
+def module_template() -> str:
+    """
+    :returns: The multi-line string template for the exploit modules.
+
+    This function reads the module template from a file and returns it as a string.
+    """
+
+    MODULE = ""
+
+    ## Uses `module.py`
+    with open("module.py", "r") as f:
+        MODULE = f.read()
+
+    return MODULE

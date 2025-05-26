@@ -64,7 +64,7 @@ def create_module(name: str) -> None:
     print(f"{f.r}[!] Then modify the starter file to include the module.{s.R}")
     print(f"{f.g}[+] Good luck!{s.R}")
 
-def create_core():
+def create_flow():
     """
     :param name: The name of the core file to be created.
     :returns: None
@@ -72,12 +72,12 @@ def create_core():
     This function creates a new core file in the current directory.
     """
 
-    with open(f"core.py", "x") as file:
-        file.write(templates.core_template())
+    with open(f"flow.py", "x") as file:
+        file.write(templates.flow_template())
 
-    print(f"{f.g}[+] `core.py` created successfully!{s.R}")
+    print(f"{f.g}[+] `flow.py` created successfully!{s.R}")
     print(f"{f.r}[!] Please edit the file and add your code.{s.R}")
-    print(f"{f.r}[!] Then modify the starter file to include the core.{s.R}")
+    print(f"{f.r}[!] Then modify the starter file to include the flow.{s.R}")
     print(f"{f.g}[+] Good luck!{s.R}")
 
 def main() -> None:

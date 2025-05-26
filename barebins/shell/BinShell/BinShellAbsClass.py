@@ -16,6 +16,9 @@ from argparse import Namespace
 from enum import Enum
 from typing import Any, Dict
 
+# Local application/library imports
+from barebins.shellcore import BinCoreAbsClass
+
 class BinShellAbsClass(ABC):
     """
     Abstract base class for a simple command line shell for carrying out developed exploits.
@@ -23,10 +26,11 @@ class BinShellAbsClass(ABC):
 
     # Attributes
     name: str
-    base_prompt: str
+    args: Namespace
     prompt: str
-    killchain: Dict[Enum, Dict[str, str]]
-    data_stage: Dict[Enum, Dict[str, Any]]
+    mod_prompt: str
+    intro: str
+    core: BinCoreAbsClass
 
     # Methods
     @abstractmethod
@@ -34,4 +38,5 @@ class BinShellAbsClass(ABC):
         """
         Initialize a shell class for the exploit.
         """
+
         pass

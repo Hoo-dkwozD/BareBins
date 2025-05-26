@@ -17,8 +17,9 @@ from pyfiglet import figlet_format
 from termcolor import cprint
 
 # Local application/library imports
+from barebins.shellcore import BinCore
 from utils.argument import ArgHandler
-from shell import BinShell
+from shell import BinShellManager
 from utils.styles import f, s
 
 # Initialize colorama
@@ -65,8 +66,9 @@ def main():
     # Parse the command-line arguments
     args = arg_handler.parser.parse_args()
 
-    shell = BinShell(os.path.basename(__file__), args)
-    shell.load_flow() # CHANGE ME
+    shell = BinShellManager(os.path.basename(__file__), args)
+    core = BinCore()
+    shell.load_flow(core)
     shell.load_modules() # CHANGE ME
     shell.start()
 
