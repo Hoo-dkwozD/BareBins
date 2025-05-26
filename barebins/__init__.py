@@ -110,7 +110,7 @@ def main() -> None:
                 "purpose", 
                 {
                     "help": "The filetype to be created: init, core, module.",
-                    "choices": ["init", "core", "module"]
+                    "choices": ["init", "flow", "module"]
                 }, 
             ),
             (
@@ -131,8 +131,8 @@ def main() -> None:
             sys.exit(1)
         else:
             create_init(args.name)
-    elif args.purpose == "core":
-        create_core()
+    elif args.purpose == "flow":
+        create_flow()
     elif args.purpose == "module" and args.name:
         if not args.name:
             print(f"{f.r}[!] Please provide a name for the init file.{s.R}")
