@@ -18,6 +18,7 @@ from typing import Any, Optional
 # Third-party library imports
 
 # Local application/library imports
+from barebins.shell.BinShell.ChildShell import ChildShell
 from utils.styles import f, s
 
 class BinShell():
@@ -31,22 +32,11 @@ class BinShell():
         """
 
         self.name = name
-        self.prompt = f"{f.b}[*] {name} >{s.R}"
+        self.base_prompt = f"{f.b}[*] {name} >{s.R}"
+        self.prompt = self.base_prompt
         self.intro = f"Welcome to the {name} shell. Type help or ? to list commands.\n"
 
-        class ChildShell(cmd.Cmd):
-            """
-            A child class of cmd.Cmd that implements the shell.
-            """
-
-            def __init__(self, name: str, args: Namespace):
-                """
-                Initialize the child shell class.
-                """
-                super().__init__()
-                self.name = name
-                self.args = args
-
+        ChildShell.base_prompt = self.base_prompt
         ChildShell.prompt = self.prompt
         ChildShell.intro = self.intro
 
