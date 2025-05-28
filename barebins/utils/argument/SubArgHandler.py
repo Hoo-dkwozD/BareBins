@@ -7,36 +7,54 @@
 :date: 2025-05-23
 
 Simplifies the handling of command-line arguments for 
-the initial python command starting the whole exploit script.
+the commands within the exploit shell.
 """
 
 # Python standard library imports
 import argparse
-from typing import Any, Optional, Union
+from collections import defaultdict
+import os
+from string import Template
+from typing import Any, Union
 
+# Local application/library imports
+from barebins.utils.argument.ArgHandler import ArgHandler
+
+# Local types
 type ArgumentConfig = dict[str, Any]
 type Argument = Union[tuple[str, ArgumentConfig], tuple[str, str, ArgumentConfig]]
 
-class ArgHandler():
+class SubArgHandler:
     """
-    A class to handle command-line arguments for the exploit script.
+    A class to handle command-line arguments within the exploit shell.
     """
 
     def __init__(self, name: str, description: str, **kwargs: dict[str, Any]):
         """
-        :param name: The name of the program.
-        :param description: A brief description of the program.
-        :param kwargs: Additional arguments for the argument parser.
-        :return: ArgHandler object.
+        :param name: The name of the command.
+        :param description: A brief description of the command.
+        :return: SubArgHandler object.
 
-        Initializes the argument parser with the given name and description.
+        Initializes the command handler with the given name and description.
         """
 
-        self.parser = argparse.ArgumentParser(
-            prog=name,
+        self.arg_handler = ArgHandler(
+            name=name,
             description=description,
             **kwargs
         )
+
+    def _expandvars(self, args: str) -> str:
+        """
+        :param args: A string of command-line arguments to have env variables expanded.
+        :return: The expanded form of the arguments.
+
+        Expands environment variables in the provided arguments.
+        """
+
+        env = defaultdict(lambda: "") # Default to empty string for missing vars
+        env.update(os.environ) # Load current environment variables
+        return Template(args).substitute(env)
 
     def add_verbose(self, description: str = 'Enables verbose output') -> None:
         """
@@ -46,7 +64,7 @@ class ArgHandler():
         Adds a verbose argument to the parser.
         """
 
-        self.parser.add_argument('-v', '--verbose', action='store_true', help=description)
+        self.arg_handler.add_verbose(description)
 
     def add_option(self, names: Union[str, tuple[str, str]], config: ArgumentConfig) -> None:
         """
@@ -58,10 +76,7 @@ class ArgHandler():
         Adds options to the parser based on the provided configuration dictionary.
         """
 
-        if type(names) is str:
-            self.parser.add_argument(names, **config)
-        else:
-            self.parser.add_argument(*names, **config)
+        self.arg_handler.add_option(names, config)
 
     def add_options(self, options: list[Argument]) -> None:
         """
@@ -72,20 +87,17 @@ class ArgHandler():
         Adds multiple options to the parser.
         """
 
-        for option in options:
-            if len(option) == 2:
-                self.add_option(option[0], option[1])
-            elif len(option) == 3:
-                self.add_option((option[0], option[1]), option[2])
-            else:
-                raise ValueError("Invalid option format. Expected (name, config) or (name, long_name, config).")
+        self.arg_handler.add_options(options)
 
-    def parse_args(self, args: Optional[list[str]] = None) -> argparse.Namespace:
+    def parse_args(self, args: str) -> argparse.Namespace:
         """
-        :param args: A list of command-line arguments to parse. If None, uses sys.argv.
+        :param args: A string of command-line arguments to parse.
         :return: The parsed arguments as a Namespace object.
 
         Parses the command-line arguments.
         """
 
-        return self.parser.parse_args(args)
+        exp_args = self._expandvars(args)
+        args_seq = exp_args.split()
+
+        return self.arg_handler.parse_args(args_seq)

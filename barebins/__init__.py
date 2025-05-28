@@ -43,8 +43,8 @@ def create_init(name: str) -> None:
         file.write(templates.start_template())
 
     print(f"{f.g}[+] `{name}.py` created successfully!{s.R}")
-    print(f"{f.r}[!] Please edit the file and add your code.{s.R}")
-    print(f"{f.r}[!] Then run it with the command: `python3 {name}.py{s.R}`")
+    print(f"{f.y}[!] Please edit the file and add your code.{s.R}")
+    print(f"{f.y}[!] Then run it with the command: `python3 {name}.py{s.R}`")
     print(f"{f.g}[+] Good luck!{s.R}")
 
 def create_module(name: str) -> None:
@@ -60,11 +60,11 @@ def create_module(name: str) -> None:
         file.write(templates.module_template())
 
     print(f"{f.g}[+] `{name}.py` created successfully!{s.R}")
-    print(f"{f.r}[!] Please edit the file and add your code.{s.R}")
-    print(f"{f.r}[!] Then modify the starter file to include the module.{s.R}")
+    print(f"{f.y}[!] Please edit the file and add your code.{s.R}")
+    print(f"{f.y}[!] Then modify the starter file to include the module.{s.R}")
     print(f"{f.g}[+] Good luck!{s.R}")
 
-def create_flow():
+def create_flow(name: str) -> None:
     """
     :param name: The name of the core file to be created.
     :returns: None
@@ -72,12 +72,12 @@ def create_flow():
     This function creates a new core file in the current directory.
     """
 
-    with open(f"flow.py", "x") as file:
+    with open(f"{name}_flow.py", "x") as file:
         file.write(templates.flow_template())
 
-    print(f"{f.g}[+] `flow.py` created successfully!{s.R}")
-    print(f"{f.r}[!] Please edit the file and add your code.{s.R}")
-    print(f"{f.r}[!] Then modify the starter file to include the flow.{s.R}")
+    print(f"{f.g}[+] `{name}_flow.py` created successfully!{s.R}")
+    print(f"{f.y}[!] Please edit the file and add your code.{s.R}")
+    print(f"{f.y}[!] Then modify the starter file to include the flow.{s.R}")
     print(f"{f.g}[+] Good luck!{s.R}")
 
 def main() -> None:
@@ -135,7 +135,7 @@ def main() -> None:
         create_flow()
     elif args.purpose == "module" and args.name:
         if not args.name:
-            print(f"{f.r}[!] Please provide a name for the init file.{s.R}")
+            print(f"{f.r}[!] Please provide a name for the module file.{s.R}")
             sys.exit(1)
         else:
             create_module(args.name)

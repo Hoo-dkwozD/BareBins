@@ -11,5 +11,9 @@ to be used for carrying out developed exploits in.
 """
 
 # Local application/library imports
-from .BinShell import BinShellManager
+
+## Abstract classes for shell
 from .BinShell import BinShellAbsClass
+
+## Basic shell manager implementation
+from .BasicShell import BasicShellManager

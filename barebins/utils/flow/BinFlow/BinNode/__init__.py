@@ -6,11 +6,8 @@
 :version: 0.1
 :date: 2025-05-23
 
-Subpackage with a collection of utilities that 
-deal with styling shell I/O.
+Subpackage of the abstract class defining all flow nodes in BareBins.
 """
 
 # Local application/library imports
-
-## Colorama styles
-from .colorama_styles import f, b, s
+from .BinNodeAbsClass import BinNodeAbsClass

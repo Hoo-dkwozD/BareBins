@@ -6,10 +6,15 @@
 :version: 0.1
 :date: 2025-05-23
 
-Collection of the nexus of business logic for the shells.
-This module serves as the core of the shell system, providing the back-end logic for the shells.
+Collection of the nexus of business logic for BareBins exploit shells.
+
+Shell Cores serve as the core of the shell system, providing the back-end logic for the shells.
 """
 
 # Local application/library imports
-from barebins.shellcore.BinCore import BinCore
+
+## Abstract classes for shell core management
 from barebins.shellcore.BinCore import BinCoreAbsClass
+
+## Basic shell core implementation
+from barebins.shellcore.BasicCore import BasicCore

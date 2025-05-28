@@ -6,7 +6,7 @@
 :version: 0.1
 :date: 2025-05-23
 
-Simplifies the Colorama styling of the output in the terminal.
+Utility that simplifies the Colorama styling of the output in the terminal.
 """
 
 # Third-party library imports

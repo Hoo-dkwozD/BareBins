@@ -10,14 +10,17 @@ Basic shell core for carrying out developed exploits.
 """
 
 # Python standard library imports
-from enum import Enum
 from typing import Any
 
 # Local application/library imports
 from barebins.shellcore.BinCore import BinCoreAbsClass
+from barebins.utils.flow.BinFlow.BinGraph import BinGraphAbsClass
 from utils.styles import f, s
 
-class BinCore(BinCoreAbsClass):
+# Local types
+type DataStage = dict[str, Any]
+
+class BasicCore(BinCoreAbsClass):
     """
     A basic shell core class that serves as the core of the shell system.
     This class provides the back-end logic for the shells.
@@ -28,13 +31,14 @@ class BinCore(BinCoreAbsClass):
         Initialize the core class for the shell.
         """
 
-        self.data_stage = {}
+        self.data_stage: DataStage = {}
 
-    def set_flow(self, flow: Any) -> None:
+    def set_flow(self, flow: BinGraphAbsClass) -> None:
         """
-        Set the flow for the core class.
+        Set the automated flow for the core class.
 
-        :param flow: The flow to be set for the core class.
+        :param flow: The graph defining the flow.
+        :return: None
         """
 
         pass
@@ -42,29 +46,31 @@ class BinCore(BinCoreAbsClass):
     def autorun(self) -> None:
         """
         Automatically run the core class.
-        This method can be implemented to handle automatic execution.
+
+        :return: None
         """
 
         pass
 
-    def update(self, category: Enum, command: str, data: Any) -> None:
+    def update(self, command: str, data: Any) -> None:
         """
         Update the core class with new data.
 
         :param category: The killchain category of the command.
-        :param command: The command the data is associated with.
-        :param data: The new data.
+        :param command: The command the data is from.
+        :param data: The new data after module execution.
+        :return: None
         """
 
-        if category not in self.data_stage:
-            self.data_stage[category] = {}
-        self.data_stage[category][command] = data
+        self.data_stage[command] = data
 
-        print(f"{f.g}Updated {category} with command '{command}' and data: {data}{s.R}")
+        print(f"{f.g}Updated data under {command}: {data}{s.R}")
 
     def reset(self) -> None:
         """
         Reset the core class to its initial state.
+
+        :return: None
         """
 
         self.data_stage.clear()

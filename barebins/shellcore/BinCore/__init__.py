@@ -6,9 +6,8 @@
 :version: 0.1
 :date: 2025-05-23
 
-Basic shell core for carrying out developed exploits.
+Subpackage of the abstract class defining all shell cores in BareBins.
 """
 
 # Local application/library imports
-from barebins.shellcore.BinCore.BinCore import BinCore
-from barebins.shellcore.BinCore.BinCoreAbsClass import BinCoreAbsClass
+from .BinCoreAbsClass import BinCoreAbsClass

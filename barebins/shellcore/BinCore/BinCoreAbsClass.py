@@ -11,8 +11,11 @@ Abstract class of the basic shell core for carrying out developed exploits.
 
 # Python standard library imports
 from abc import ABC, abstractmethod
-from enum import Enum
-from typing import Any, Dict
+from enum import StrEnum
+from typing import Any
+
+# Local application/library imports
+from barebins.utils.flow.BinFlow.BinGraph import BinGraphAbsClass
 
 class BinCoreAbsClass(ABC):
     """
@@ -23,18 +26,18 @@ class BinCoreAbsClass(ABC):
     @abstractmethod
     def __init__(self):
         """
-        Initialize the core class for the shell.
+        Initialize the core class for the exploit shell.
         """
 
         pass
 
     @abstractmethod
-    def set_flow(self, flow: Any) -> None:
+    def set_flow(self, flow: BinGraphAbsClass) -> None:
         """
         Set the flow for the core class.
-        This method should be implemented by subclasses to handle flow setting.
 
         :param flow: The flow to be set for the core class.
+        :return: None
         """
 
         pass
@@ -42,21 +45,22 @@ class BinCoreAbsClass(ABC):
     @abstractmethod
     def autorun(self) -> None:
         """
-        Automatically run the core class.
-        This method should be implemented by subclasses to handle automatic execution.
+        Automatically run the exploit modules based on defined flow.
+
+        :return: None
         """
 
         pass
 
     @abstractmethod
-    def update(self, category: Enum, command: str, data: Any) -> None:
+    def update(self, command: str, data: Any) -> None:
         """
         Update the core class with new data.
-        This method should be implemented by subclasses to handle updates.
 
         :param category: The killchain category of the command.
         :param command: The command the data is associated with.
         :param data: The new data.
+        :return: None
         """
 
         pass
@@ -65,7 +69,8 @@ class BinCoreAbsClass(ABC):
     def reset(self) -> None:
         """
         Reset the core class to its initial state.
-        This method should be implemented by subclasses to handle resets.
+
+        :return: None
         """
 
         pass

@@ -6,19 +6,19 @@
 :version: 0.1
 :date: 2025-05-23
 
+The default kill chain for BareBins.
+It is a simplified version of popular frameworks.
+
 List the kill chain stages and their descriptions.
 Used to help categorise the modules in the exploit.
-
-The default kill-chain provided is a simplified version 
-of popular frameworks.
 """
 
 # Python standard library imports
 from enum import StrEnum
 
-class KillChain(StrEnum):
+class BasicKillChain(StrEnum):
     """
-    Enum class for the kill chain stages.
+    Enum class for the basic kill chain stages.
     """
     
     RECON = "Reconnaissance of the target systems"

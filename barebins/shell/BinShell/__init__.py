@@ -6,9 +6,8 @@
 :version: 0.1
 :date: 2025-05-23
 
-Subpackage of basic shell core for carrying out developed exploits.
+Subpackage of the abstract class defining all shells in BareBins.
 """
 
 # Local application/library imports
-from barebins.shell.BinShell.BinShellManager import BinShellManager
-from barebins.shell.BinShell.BinShellAbsClass import BinShellAbsClass
+from .BinShellAbsClass import BinShellAbsClass
