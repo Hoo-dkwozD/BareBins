@@ -15,6 +15,7 @@ from enum import StrEnum
 from typing import Optional, Union
 
 # Local application/library imports
+from barebins.module.BinModule import BinModuleAbsClass
 from barebins.shell.BasicShell.BasicShell import BasicShell
 from barebins.shellcore import BinCoreAbsClass
 from barebins.utils.flow.BinFlow import BinGraphAbsClass
@@ -37,12 +38,7 @@ class BasicShellManager():
         self.args = args
         self.child_shell = BasicShell(name, args)
 
-    def _add_module_to_killchain(
-        self, 
-        killchain_cat: StrEnum, 
-        command_name: str, 
-        help_text: Optional[str] = None
-    ) -> None:
+    def _add_module_to_killchain(self, module: BinModuleAbsClass) -> None:
         """
         Add a module to the killchain category.
 
@@ -52,28 +48,22 @@ class BasicShellManager():
         :return: None
         """
         
-        if killchain_cat not in self.child_shell.killchain:
-            self.child_shell.killchain[killchain_cat] = {}
+        if module.killchain_cat not in self.child_shell.killchain:
+            self.child_shell.killchain[module.killchain_cat] = {}
             setattr(
                 self.child_shell, 
-                f"do_{killchain_cat.name}", 
-                lambda: print(f"{f.b}Collection of {killchain_cat.name} commands{s.R}")
+                f"do_{module.killchain_cat.name}", 
+                lambda: print(f"{f.b}Collection of {module.killchain_cat.name} commands{s.R}")
             )
             setattr(
                 self.child_shell, 
-                f"help_{killchain_cat.name}", 
-                lambda: print(f"{f.b}{killchain_cat.value}{s.R}")
+                f"help_{module.killchain_cat.name}", 
+                lambda: print(f"{f.b}{module.killchain_cat.value}{s.R}")
             )
 
-        self.child_shell.killchain[killchain_cat][command_name] = help_text or "No help text provided."
+        self.child_shell.killchain[module.killchain_cat][module.name] = module.help_text
 
-    def load_module(
-        self, 
-        killchain_cat: StrEnum, 
-        command_name: str, 
-        function: callable, 
-        help_text: str = None
-    ) -> None:
+    def load_module(self, module: BinModuleAbsClass) -> None:
         """
         Load the modules for the shell.
 
@@ -84,22 +74,15 @@ class BasicShellManager():
         :return: None
         """
 
-        self._add_module_to_killchain(killchain_cat, command_name, help_text)
-        setattr(self.child_shell, f"do_{command_name}", function)
-        if help_text is not None:
-            setattr(
-                self.child_shell, 
-                f"help_{command_name}", 
-                lambda: print(f"{f.b}{killchain_cat.name} Type: {help_text}{s.R}")
-            )
-        else:
-            setattr(
-                self.child_shell, 
-                f"help_{command_name}", 
-                lambda: print(f"{f.b}{killchain_cat.name} Type: No help text provided.{s.R}")
-            )
+        self._add_module_to_killchain(module)
+        setattr(self.child_shell, f"do_{module.name}", function)
+        setattr(
+            self.child_shell, 
+            f"help_{module.name}", 
+            lambda: print(f"{f.b}{module.killchain_cat.name} Type: {module.help_text}{s.R}")
+        )
 
-    def load_modules(self, modules: list[Module]) -> None:
+    def load_modules(self, modules: list[BinModuleAbsClass]) -> None:
         """
         Load the modules for the shell.
 
@@ -108,17 +91,9 @@ class BasicShellManager():
         """
         
         for module in modules:
-            if len(module) == 3:
-                self.load_module(module[0], module[1], module[2])
-            elif len(module) == 4:
-                self.load_module(module[0], module[1], module[2], module[3])
-            else:
-                print(
-                    f"{f.r}[!] Invalid module format. Must be (category, name, function) or (category, name, function, help_text).{s.R}"
-                )
-                continue
-            print(f"{f.g}[+] Loaded module: {module[1]}{s.R}")
-            print(f"{f.g}[+] Help: {module[3]}{s.R}" if len(module) == 4 else f"{f.g}[+] No help text provided.{s.R}")
+            self.load_module(module)
+            print(f"{f.g}[+] Loaded module: {module.name}{s.R}")
+            print(f"{f.g}[+] Help: {module.help_text}{s.R}")
 
     def load_core(self, core: BinCoreAbsClass) -> None:
         """

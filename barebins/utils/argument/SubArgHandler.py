@@ -38,6 +38,9 @@ class SubArgHandler:
         Initializes the command handler with the given name and description.
         """
 
+        if "add_help" not in kwargs:
+            kwargs["add_help"] = False
+
         self.arg_handler = ArgHandler(
             name=name,
             description=description,

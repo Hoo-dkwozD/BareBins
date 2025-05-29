@@ -13,14 +13,18 @@ import sys
 
 # Third-party library imports
 from colorama import init as colorama_init
+from barebins.shellcore import BasicCore
+from barebins.shell import BasicShellManager
+from barebins.utils.argument import ArgHandler
+from barebins.utils.killchain import BasicKillChain
+from barebins.utils.styles import f, s
 from pyfiglet import figlet_format
 from termcolor import cprint
 
 # Local application/library imports
-from barebins.shellcore import BasicCore
-from barebins.utils.argument import ArgHandler
-from barebins.shell import BasicShellManager
-from barebins.utils.styles import f, s
+# -- CHANGE ME --
+from example_module import example_module
+# -- CHANGE ME --
 
 # Initialize colorama
 colorama_init(strip=not sys.stdout.isatty())
@@ -54,9 +58,9 @@ def main():
     )
 
     # Add command-line arguments
+    # -- CHANGE ME -- 
     arg_handler.add_verbose()
     options = []
-    # -- CHANGE ME -- 
     options.append(
         ("-e", "--example", {"help": "An example option"})
     )
@@ -64,13 +68,19 @@ def main():
     arg_handler.add_options(options)
 
     # Parse the command-line arguments
-    args = arg_handler.parser.parse_args()
+    args = arg_handler.parse_args()
 
     # -- CHANGE ME --
     shell = BasicShellManager(os.path.basename(__file__), args)
     core = BasicCore()
     shell.load_core(core)
-    shell.load_modules()
+    shell.load_modules(
+        [
+            # Example module (type, name, function, help_text)
+            example_module, 
+            # -- ADD YOUR MODULES HERE --
+        ]
+    )
     # -- CHANGE ME --
     shell.start()
 
