@@ -15,7 +15,7 @@ from typing import Any
 # Local application/library imports
 from barebins.shellcore.BinCore import BinCoreAbsClass
 from barebins.utils.flow.BinFlow.BinGraph import BinGraphAbsClass
-from utils.styles import f, s
+from barebins.utils.styles import f, s
 
 # Local types
 type DataStage = dict[str, Any]

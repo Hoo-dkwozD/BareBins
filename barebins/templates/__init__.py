@@ -9,7 +9,11 @@
 Collection of templates for structural files needed to use this package.
 """
 
+# Python standard library imports
+import os
+
 # Starter template for the exploit script
+
 def start_template() -> str:
     """
     :returns: The multi-line string starter template for the exploit entry-point.
@@ -20,7 +24,8 @@ def start_template() -> str:
     START = ""
 
     ## Uses `starter.py`
-    with open("starter.py", "r") as f:
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    with open(f"{dir_path}/starter.py", "r") as f:
         START = f.read()
 
     return START
@@ -36,7 +41,24 @@ def module_template() -> str:
     MODULE = ""
 
     ## Uses `module.py`
-    with open("module.py", "r") as f:
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    with open(f"{dir_path}/module.py", "r") as f:
         MODULE = f.read()
 
     return MODULE
+
+def flow_template() -> str:
+    """
+    :returns: The multi-line string template for the exploit flow.
+
+    This function reads the flow template from a file and returns it as a string.
+    """
+
+    FLOW = ""
+
+    ## Uses `flow.py`
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    with open(f"{dir_path}/flow.py", "r") as f:
+        FLOW = f.read()
+
+    return FLOW

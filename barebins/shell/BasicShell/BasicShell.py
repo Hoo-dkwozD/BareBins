@@ -109,7 +109,7 @@ class BasicShell(cmd.Cmd, BinShellAbsClass):
             print(f"{f.b}Type 'clear' to clear the screen.{s.R}")
             print()
 
-    def do_exit(self) -> bool:
+    def do_exit(self, _: str) -> bool:
         """
         Exit the shell.
 

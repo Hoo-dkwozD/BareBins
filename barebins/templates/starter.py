@@ -18,9 +18,9 @@ from termcolor import cprint
 
 # Local application/library imports
 from barebins.shellcore import BasicCore
-from utils.argument import ArgHandler
-from shell import BasicShellManager
-from utils.styles import f, s
+from barebins.utils.argument import ArgHandler
+from barebins.shell import BasicShellManager
+from barebins.utils.styles import f, s
 
 # Initialize colorama
 colorama_init(strip=not sys.stdout.isatty())
@@ -33,7 +33,7 @@ cprint(
     end=f"\n"
 )
 cprint(
-    figlet_format(os.path.basename(__name__), font="alphabet"),
+    figlet_format(os.path.basename(__file__), font="alphabet"),
     "blue",
     attrs=["bold"],
     end=f"\n\n"
@@ -49,7 +49,7 @@ def main():
 
     # Initialize the argument handler
     arg_handler = ArgHandler(
-        prog=os.path.basename(__file__),
+        name=os.path.basename(__file__),
         description="Exploit tool. ", # CHANGE ME
     )
 

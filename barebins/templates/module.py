@@ -13,7 +13,7 @@
 
 # Local application/library imports
 from barebins.shell import BinShellAbsClass
-from utils.styles import f, s
+from barebins.utils.styles import f, s
 
 def module(self: BinShellAbsClass, args: str) -> None:
     """

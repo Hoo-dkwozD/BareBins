@@ -18,7 +18,7 @@ from typing import Optional, Union
 from barebins.shell.BasicShell.BasicShell import BasicShell
 from barebins.shellcore import BinCoreAbsClass
 from barebins.utils.flow.BinFlow import BinGraphAbsClass
-from utils.styles import f, s
+from barebins.utils.styles import f, s
 
 # Local types
 type Module = Union[tuple[StrEnum, str, callable], tuple[StrEnum, str, callable, str]]
@@ -146,4 +146,4 @@ class BasicShellManager():
         :return: None
         """
 
-        self.child_shell(self.name, self.args).cmdloop()
+        self.child_shell.cmdloop()
