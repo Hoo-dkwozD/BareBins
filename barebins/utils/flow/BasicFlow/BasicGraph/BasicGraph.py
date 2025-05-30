@@ -1,0 +1,2 @@
+class BasicGraph:
+    pass

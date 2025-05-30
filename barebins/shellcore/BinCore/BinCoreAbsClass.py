@@ -15,6 +15,7 @@ from enum import StrEnum
 from typing import Any
 
 # Local application/library imports
+from barebins.shell.BinShell import BinShellAbsClass
 from barebins.utils.flow.BinFlow.BinGraph import BinGraphAbsClass
 
 class BinCoreAbsClass(ABC):
@@ -22,6 +23,8 @@ class BinCoreAbsClass(ABC):
     Abstract base class for the core of the shell system.
     This class defines the interface for the shell core.
     """
+
+    _flow: BinGraphAbsClass
 
     @abstractmethod
     def __init__(self):
@@ -31,23 +34,46 @@ class BinCoreAbsClass(ABC):
 
         pass
 
+    @property
     @abstractmethod
-    def set_flow(self, flow: BinGraphAbsClass) -> None:
+    def flow(self) -> BinGraphAbsClass:
         """
-        Set the flow for the core class.
+        :return: Graph representing module flow
 
+        Return the flow of the core class.
+        """
+
+        pass
+
+    @flow.setter
+    @abstractmethod
+    def flow(self, flow: BinGraphAbsClass) -> None:
+        """
         :param flow: The flow to be set for the core class.
         :return: None
+
+        Set the flow for the core class.
         """
 
         pass
 
     @abstractmethod
-    def autorun(self) -> None:
+    def has_flow(self) -> bool:
         """
-        Automatically run the exploit modules based on defined flow.
+        :return: Boolean indicating presence of module flow object. 
 
+        Indicates whether module flow object is properly set. 
+        """
+
+        pass
+
+    @abstractmethod
+    def setup_flow(self, shell: BinShellAbsClass) -> None:
+        """
+        :param shell: The shell to which to add exploit modules to.
         :return: None
+
+        Initialises the function modules from the flow object. 
         """
 
         pass
@@ -55,12 +81,11 @@ class BinCoreAbsClass(ABC):
     @abstractmethod
     def update(self, command: str, data: Any) -> None:
         """
-        Update the core class with new data.
-
-        :param category: The killchain category of the command.
         :param command: The command the data is associated with.
         :param data: The new data.
         :return: None
+
+        Update the core class with new data.
         """
 
         pass
@@ -68,9 +93,9 @@ class BinCoreAbsClass(ABC):
     @abstractmethod
     def reset(self) -> None:
         """
-        Reset the core class to its initial state.
-
         :return: None
+
+        Reset the core class to its initial state.
         """
 
         pass

@@ -10,4 +10,4 @@ Subpackage of the abstract class defining all flow nodes in BareBins.
 """
 
 # Local application/library imports
-from .BinNodeAbsClass import BinNodeAbsClass
+from .BinNodeAbsClass import BinNodeAbsClass, EdgeLogic

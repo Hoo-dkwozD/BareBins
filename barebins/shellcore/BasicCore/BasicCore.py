@@ -10,11 +10,12 @@ Basic shell core for carrying out developed exploits.
 """
 
 # Python standard library imports
-from typing import Any
+from typing import Any, Optional
 
 # Local application/library imports
+from barebins.shell import BasicShell
 from barebins.shellcore.BinCore import BinCoreAbsClass
-from barebins.utils.flow.BinFlow.BinGraph import BinGraphAbsClass
+from barebins.utils.flow.BasicFlow import BasicGraph
 from barebins.utils.styles import f, s
 
 # Local types
@@ -26,6 +27,8 @@ class BasicCore(BinCoreAbsClass):
     This class provides the back-end logic for the shells.
     """
 
+    _flow: Optional[BasicGraph] = None
+
     def __init__(self):
         """
         Initialize the core class for the shell.
@@ -33,44 +36,64 @@ class BasicCore(BinCoreAbsClass):
 
         self.data_stage: DataStage = {}
 
-    def set_flow(self, flow: BinGraphAbsClass) -> None:
+    @property
+    def flow(self) -> BasicGraph:
         """
-        Set the automated flow for the core class.
+        :return: The graph defining the flow.
 
+        Get the automated flow for the core class.
+        """
+
+        return self._flow
+
+    @flow.setter
+    def flow(self, flow: BasicGraph) -> None:
+        """
         :param flow: The graph defining the flow.
         :return: None
+
+        Set the automated flow for the core class.
         """
 
-        pass
+        self._flow = flow
 
-    def autorun(self) -> None:
+    def has_flow(self) -> bool:
         """
-        Automatically run the core class.
+        :return: Boolean indicating the presence of a flow object.
 
+        Indicates whether a flow object has been set. 
+        """
+
+        return type(self._flow) == BasicGraph
+
+    def setup_flow(self, shell: BasicShell) -> None:
+        """
+        :param shell: The shell to which to add exploit modules to.
         :return: None
+
+        Initialises the function modules from the flow object. 
         """
 
         pass
 
     def update(self, command: str, data: Any) -> None:
         """
-        Update the core class with new data.
-
-        :param category: The killchain category of the command.
         :param command: The command the data is from.
         :param data: The new data after module execution.
         :return: None
+
+        Update the core class with new data.
         """
 
         self.data_stage[command] = data
 
-        print(f"{f.g}Updated data under {command}: {data}{s.R}")
+        print(f"{f.g}[+] Updated data under {command}: {data}{s.R}")
 
     def reset(self) -> None:
         """
-        Reset the core class to its initial state.
-
         :return: None
+
+        Reset the core class to its initial state.
         """
 
         self.data_stage.clear()
