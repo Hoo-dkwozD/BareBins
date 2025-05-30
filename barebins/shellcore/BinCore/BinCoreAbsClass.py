@@ -68,7 +68,7 @@ class BinCoreAbsClass(ABC):
         pass
 
     @abstractmethod
-    def setup_flow(self, shell: BinShellAbsClass) -> None:
+    def init_flow(self, shell: BinShellAbsClass) -> None:
         """
         :param shell: The shell to which to add exploit modules to.
         :return: None

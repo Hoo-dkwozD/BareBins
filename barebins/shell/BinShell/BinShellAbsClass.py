@@ -94,11 +94,31 @@ class BinShellAbsClass(ABC):
         pass
 
     @abstractmethod
-    def check_core(self) -> bool:
+    def has_core(self) -> bool:
         """
         Check if the core is set.
         
         :return: True if the core is set, False otherwise.
+        """
+
+        pass
+
+    @abstractmethod
+    def has_flow(self) -> bool:
+        """
+        Check if the flow in the core is set.
+        
+        :return: True if the flow is set, False otherwise.
+        """
+
+        pass
+
+    @abstractmethod
+    def init_flow(self) -> None:
+        """
+        :return: None
+
+        Initialise the modules defined in the flow object. 
         """
 
         pass

@@ -66,7 +66,7 @@ class BasicCore(BinCoreAbsClass):
 
         return type(self._flow) == BasicGraph
 
-    def setup_flow(self, shell: BasicShell) -> None:
+    def init_flow(self, shell: BasicShell) -> None:
         """
         :param shell: The shell to which to add exploit modules to.
         :return: None

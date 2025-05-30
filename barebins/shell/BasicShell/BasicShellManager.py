@@ -105,14 +105,17 @@ class BasicShellManager():
         
         self.child_shell.core = core
 
-    def load_flow(self, flow: BinGraphAbsClass, overwrite: bool) -> None:
+    def init_flow(self) -> None:
         """
         Load the automated flow for the shell.
 
         :return: None
         """
 
-        self.child_shell.core.set_flow(flow)
+        if self.child_shell.has_flow():
+            self.child_shell.init_flow()
+        else:
+            raise Exception()
 
     def start(self) -> None:
         """

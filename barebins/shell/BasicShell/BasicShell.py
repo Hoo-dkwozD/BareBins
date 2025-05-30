@@ -119,7 +119,7 @@ class BasicShell(cmd.Cmd, BinShellAbsClass):
         print(f"{f.b}[+] Exiting {self.name} shell... {s.R}")
         return True
 
-    def check_core(self) -> bool:
+    def has_core(self) -> bool:
         """
         Check if the core is set.
 
@@ -130,3 +130,21 @@ class BasicShell(cmd.Cmd, BinShellAbsClass):
             print(f"{f.r}[!] Core not set. Please set the core before using the shell.{s.R}")
             return False
         return True
+
+    def has_flow(self) -> bool:
+        """
+        Check if the flow in the core is set.
+
+        :return: True if the flow is set, False otherwise.
+        """
+
+        return (self.has_core() and self.core.has_flow())
+
+    def init_flow(self) -> None:
+        """
+        :return: None
+
+        Initialise the modules defined in the flow object. 
+        """
+
+        pass

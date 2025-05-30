@@ -23,7 +23,10 @@ from termcolor import cprint
 
 # Local application/library imports
 # -- CHANGE ME --
+## Either MODULAR
 from example_module import example_module
+## Or FLOW-BASED
+from example_flow import example_flow
 # -- CHANGE ME --
 
 # Initialize colorama
@@ -73,14 +76,18 @@ def main():
     # -- CHANGE ME --
     shell = BasicShellManager(os.path.basename(__file__), args)
     core = BasicCore()
+    ## Either MODULAR
     shell.load_core(core)
     shell.load_modules(
         [
-            # Example module (type, name, function, help_text)
             example_module, 
             # -- ADD YOUR MODULES HERE --
         ]
     )
+    ## Or FLOW-BASED
+    core.flow = example_flow
+    shell.load_core(core)
+    shell.init_flow()
     # -- CHANGE ME --
     shell.start()
 
