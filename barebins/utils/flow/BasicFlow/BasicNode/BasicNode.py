@@ -15,7 +15,7 @@ from typing import Any, Callable, Optional, Self
 
 # Local application/library imports
 from barebins.shell.BinShell import BinShellAbsClass
-from barebins.utils.flow.BinFlow.BinNode import BinNodeAbsClass, EdgeLogic
+from barebins.utils.flow.BinFlow.BinNode import BinNodeAbsClass
 
 
 class BasicNode(BinNodeAbsClass):
@@ -47,7 +47,7 @@ class BasicNode(BinNodeAbsClass):
         self._edge_logic = None
 
     @property
-    def edge_logic(self) -> EdgeLogic:
+    def edge_logic(self) -> Callable[[int, dict[str, Any]], Self]:
         """
         :return: The function that dictates which node to go 
             to next based on inputs of `status` and `data`. 
@@ -58,7 +58,7 @@ class BasicNode(BinNodeAbsClass):
         return self._edge_logic
 
     @edge_logic.setter
-    def edge_logic(self, edge_logic: EdgeLogic) -> None:
+    def edge_logic(self, edge_logic: Callable[[int, dict[str, Any]], Self]) -> None:
         """
         :param edge_logic: The function dictating which node to call next. 
             Accepts 2 arguments: `status` and `data`.
@@ -72,6 +72,8 @@ class BasicNode(BinNodeAbsClass):
 
     def goto(self, status: int, data: dict[str, Any]) -> Optional[Self]:
         """
+        :param status: Status code of the execution of this node's exploit.
+        :param data: Data produced by the execution of this node's exploit. 
         :return: Next Node
 
         Returns the next node after executing this node.

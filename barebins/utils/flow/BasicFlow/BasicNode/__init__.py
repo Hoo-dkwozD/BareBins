@@ -6,7 +6,7 @@
 :version: 0.1
 :date: 2025-05-23
 
-Basic graph node to represent modules in a flow object. 
+Subpackage containing a basic graph node to represent modules in a flow object. 
 """
 
 # Local application/library imports
